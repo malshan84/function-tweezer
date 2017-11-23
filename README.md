@@ -1,5 +1,2 @@
-# electron-react-express-icp
-```
-npm install  
-npm start
-```
+# function-tweezer
+function unit git/svn log viewer
