@@ -1,9 +1,15 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
-import { registEvent, createRouteServer } from './events/AppEvents';
+import * as UserInfoEvents from './events/UserInfoEvents';
+import RouteServer from './RouteServer';
 
 let mainWindow: Electron.BrowserWindow;
+
+function initialize() {
+    RouteServer.createRouteServer(UserInfoEvents.getProtNum(), mainWindow);
+    UserInfoEvents.registEvent();
+}
 
 function createWindow() {
     mainWindow = new BrowserWindow({ width: 800, height: 600 });
@@ -13,6 +19,10 @@ function createWindow() {
         protocol: 'file:',
         slashes: true
     });
+
+    // hide menu bar
+    mainWindow.setMenu(null);
+
     mainWindow.loadURL(startUrl);
 
     mainWindow.webContents.openDevTools();
@@ -25,9 +35,7 @@ function createWindow() {
         console.log(arg);
         event.returnValue = 8000;
     });
-
-    createRouteServer(8080, mainWindow);
-    registEvent();
+    initialize();
 }
 
 app.on('ready', createWindow);

@@ -37,6 +37,7 @@ export default class RouteServer {
     }
 
     public changePort(port: number) {
+        this._server.close();
         this._server.listen(port);
     }
 }
