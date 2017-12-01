@@ -97,7 +97,7 @@ function listenSavePortNumEvent() {
  * REQUEST_PORT_NUM
  */
 const REQUEST_PORT_NUM = 'REQUEST_PORT_NUM';
-export function requestPortNumEvent(): boolean {
+export function requestPortNumEvent(): number {
     return ipcRenderer.sendSync(REQUEST_PORT_NUM, 'Has info??');
 }
 
