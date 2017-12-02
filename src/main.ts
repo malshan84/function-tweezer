@@ -3,27 +3,38 @@ import * as path from 'path';
 import * as url from 'url';
 import * as UserInfoEvents from './events/UserInfoEvents';
 import RouteServer from './RouteServer';
+import * as GlobalEvent from './events/GlobalEvents';
 
 let mainWindow: Electron.BrowserWindow;
 
 function initialize() {
     RouteServer.createRouteServer(UserInfoEvents.getProtNum(), mainWindow);
     UserInfoEvents.registEvent();
+    GlobalEvent.listenRequestHasInfoEvent(loadURL);
+    if (UserInfoEvents.hasUserInfo()) {
+        loadURL('setting');
+    } else {
+        loadURL('waiting');
+    }
+}
+
+function loadURL(hashStr: string) {
+    const startUrl = process.env.ELECTRON_START_URL || url.format({
+        pathname: path.join(__dirname, '/../../public/index.html'),
+        protocol: 'file:',
+        slashes: true,
+        hash: hashStr
+    });
+
+    mainWindow.loadURL(startUrl);
 }
 
 function createWindow() {
     mainWindow = new BrowserWindow({ width: 800, height: 600 });
     console.log('start electron');
-    const startUrl = process.env.ELECTRON_START_URL || url.format({
-        pathname: path.join(__dirname, '/../../public/index.html'),
-        protocol: 'file:',
-        slashes: true
-    });
 
     // hide menu bar
     mainWindow.setMenu(null);
-
-    mainWindow.loadURL(startUrl);
 
     mainWindow.webContents.openDevTools();
 

@@ -85,8 +85,8 @@ function listenRequestHasInfoEvent() {
     });
 }
 
-function hasUserInfo(): boolean {
-    return event.returnValue = settings.has(USER_INFO_SVN) || settings.has(USER_INFO_GIT);
+export function hasUserInfo(): boolean {
+    return settings.has(USER_INFO_SVN) || settings.has(USER_INFO_GIT);
 }
 
 /**
