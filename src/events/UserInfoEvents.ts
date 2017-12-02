@@ -51,12 +51,21 @@ export function requestUserInfoEvent(kind: SvcKind) {
 
 function listenRequestUserInfoEvent() {
     ipcMain.on(REQUEST_USER_INFO, (event: Electron.Event, _kind: SvcKind) => {
-        event.returnValue = {
-            kind: _kind,
-            url: settings.get(`${USER_INFO + _kind}.url`),
-            id: settings.get(`${USER_INFO + _kind}.id`),
-            pw: settings.get(`${USER_INFO + _kind}.pw`)
-        };
+        if (settings.has(USER_INFO + _kind)) {
+            event.returnValue = {
+                kind: _kind,
+                url: settings.get(`${USER_INFO + _kind}.url`),
+                id: settings.get(`${USER_INFO + _kind}.id`),
+                pw: settings.get(`${USER_INFO + _kind}.pw`)
+            };
+        } else {
+            event.returnValue = {
+                kind: _kind,
+                url: '',
+                id: '',
+                pw: ''
+            };
+        }        
     });
 }
 
@@ -72,8 +81,12 @@ function listenRequestHasInfoEvent() {
     ipcMain.on(REQUEST_HAS_INFO, (event: Electron.Event, message: string) => {
         console.log(USER_INFO_GIT);
         console.log(USER_INFO_SVN);
-        event.returnValue = settings.has(USER_INFO_SVN) || settings.has(USER_INFO_GIT);
+        event.returnValue = hasUserInfo();
     });
+}
+
+function hasUserInfo(): boolean {
+    return event.returnValue = settings.has(USER_INFO_SVN) || settings.has(USER_INFO_GIT);
 }
 
 /**
