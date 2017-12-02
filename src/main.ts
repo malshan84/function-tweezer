@@ -12,9 +12,9 @@ function initialize() {
     UserInfoEvents.registEvent();
     GlobalEvent.listenRequestHasInfoEvent(loadURL);
     if (UserInfoEvents.hasUserInfo()) {
-        loadURL('setting');
-    } else {
         loadURL('waiting');
+    } else {
+        loadURL('setting');
     }
 }
 
