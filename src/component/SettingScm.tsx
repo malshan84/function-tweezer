@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as UserInfoEvent from '../events/UserInfoEvents';
-import { SvcKind, UserInfo } from '../events/UserInfoEvents';
+import { SvcKind, UserInfo } from '../api/UserInfo';
 
 class SettingScm extends React.Component<{type: SvcKind, addSaveEventListener: Function}, UserInfo> {
 

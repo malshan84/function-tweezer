@@ -1,25 +1,7 @@
 import { ipcRenderer, ipcMain } from 'electron';
-import * as settings from 'electron-settings';
-import RouteServer from '../RouteServer';
-
-export enum SvcKind {
-    SVN,
-    GIT
-}
-
-const DEFAULT_PORT_NUM = 8080;
-
-const USER_INFO = 'userinfo_';
-const USER_INFO_GIT = USER_INFO + SvcKind.GIT;
-const USER_INFO_SVN = USER_INFO + SvcKind.SVN;
-const PORT_NUM = 'port_num';
-
-export interface UserInfo {
-    kind: number;
-    url: string;
-    id: string;
-    pw: string;
-}
+import * as PortApi from '../api/Port';
+import * as UserInfoApi from '../api/UserInfo';
+import { SvcKind, UserInfo } from '../api/UserInfo';
 
 /**
  * SAVE_USER_INFO
@@ -31,12 +13,7 @@ export function saveUserInfoEvent(userInfo: UserInfo): Boolean {
 
 function listenSaveUserInfoEvent() {
     ipcMain.on(SAVE_USER_INFO, (event: Electron.Event, userInfo: UserInfo) => {
-        console.log(userInfo);
-        settings.set(USER_INFO + userInfo.kind, {
-            url: userInfo.url,
-            id: userInfo.id,
-            pw: userInfo.pw
-        });     
+        UserInfoApi.setUserInfo(userInfo);
         event.returnValue = true;
     });
 }
@@ -50,22 +27,8 @@ export function requestUserInfoEvent(kind: SvcKind) {
 }
 
 function listenRequestUserInfoEvent() {
-    ipcMain.on(REQUEST_USER_INFO, (event: Electron.Event, _kind: SvcKind) => {
-        if (settings.has(USER_INFO + _kind)) {
-            event.returnValue = {
-                kind: _kind,
-                url: settings.get(`${USER_INFO + _kind}.url`),
-                id: settings.get(`${USER_INFO + _kind}.id`),
-                pw: settings.get(`${USER_INFO + _kind}.pw`)
-            };
-        } else {
-            event.returnValue = {
-                kind: _kind,
-                url: '',
-                id: '',
-                pw: ''
-            };
-        }        
+    ipcMain.on(REQUEST_USER_INFO, (event: Electron.Event, kind: SvcKind) => {
+        event.returnValue = UserInfoApi.getUserInfo(kind);   
     });
 }
 
@@ -79,14 +42,8 @@ export function requestHasInfoEvent(): boolean {
 
 function listenRequestHasInfoEvent() {
     ipcMain.on(REQUEST_HAS_INFO, (event: Electron.Event, message: string) => {
-        console.log(USER_INFO_GIT);
-        console.log(USER_INFO_SVN);
-        event.returnValue = hasUserInfo();
+        event.returnValue = UserInfoApi.hasUserInfo();
     });
-}
-
-export function hasUserInfo(): boolean {
-    return settings.has(USER_INFO_SVN) || settings.has(USER_INFO_GIT);
 }
 
 /**
@@ -99,10 +56,7 @@ export function savePortNumEvent(portNum: number): Boolean {
 
 function listenSavePortNumEvent() {
     ipcMain.on(SAVE_PORT_NUM, (event: Electron.Event, portNum: number) => {
-        console.log(`port num : ${portNum}`);
-        settings.set(PORT_NUM, portNum);
-        RouteServer.getInstance().changePort(portNum);
-        event.returnValue = true;
+        event.returnValue = PortApi.savePortNum(portNum);
     });
 }
 
@@ -116,22 +70,8 @@ export function requestPortNumEvent(): number {
 
 function listenRequestPortNumEvent() {
     ipcMain.on(REQUEST_PORT_NUM, (event: Electron.Event, message: string) => {
-        if (settings.has(PORT_NUM)) {
-            event.returnValue = getProtNum();
-        } else {
-            event.returnValue = 8080;
-        }   
+        event.returnValue = PortApi.getProtNum();
     });
-}
-
-export function getProtNum(): number {
-    if (settings.has(PORT_NUM)) {
-        const portNum = settings.get(PORT_NUM);
-        if (typeof portNum === 'number') {
-            return portNum;
-        }
-    }
-    return DEFAULT_PORT_NUM;   
 }
 
 export function registEvent() {

@@ -4,14 +4,16 @@ import * as url from 'url';
 import * as UserInfoEvents from './events/UserInfoEvents';
 import RouteServer from './RouteServer';
 import * as GlobalEvent from './events/GlobalEvents';
+import * as UserInfoApi from './api/UserInfo';
+import * as PortApi from './api/Port';
 
 let mainWindow: Electron.BrowserWindow;
 
 function initialize() {
-    RouteServer.createRouteServer(UserInfoEvents.getProtNum(), mainWindow);
+    RouteServer.createRouteServer(PortApi.getProtNum(), mainWindow);
     UserInfoEvents.registEvent();
     GlobalEvent.listenRequestHasInfoEvent(loadURL);
-    if (UserInfoEvents.hasUserInfo()) {
+    if (UserInfoApi.hasUserInfo()) {
         loadURL('waiting');
     } else {
         loadURL('setting');
