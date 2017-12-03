@@ -11,7 +11,7 @@ interface ReqInfo {
 }
 
 const SHOW_LOG = 'SHOW_LOG';
-export function showLogEvent() {
+function showLogEvent() {
     let userInfo: UserInfo = UserinfoApi.getUserInfo(SvcKind.SVN);
     const gitLogCollector = new LogCollector({username: userInfo.id, password: userInfo.pw, kind: 'git'});
     RouteServer.getInstance().addEvent(SHOW_LOG, (req): any => {
@@ -28,18 +28,16 @@ export function showLogEvent() {
                     logs = revs;
             }
         });
-        return logs; 
+        return logs;
     });
 }
 
-export function listenGetLog(eventFunc: (args: string) => void) { 
-    listenEvent(SHOW_LOG, (args: string) => { 
-        eventFunc(args); 
+export function listenShowLog(eventFunc: (revisions: string[]) => void) { 
+    ipcRenderer.on(SHOW_LOG, (event: Electron.Event, revisions: any) => { 
+        eventFunc(revisions);
     }); 
 }
 
-function listenEvent(eventName: string, func: (args: string) => void ) { 
-    ipcRenderer.on(eventName, (event: Electron.Event, args: any) => { 
-        func(args); 
-    }); 
+export function registEvents () {
+    showLogEvent();
 }

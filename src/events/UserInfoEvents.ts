@@ -74,7 +74,7 @@ function listenRequestPortNumEvent() {
     });
 }
 
-export function registEvent() {
+export function registEvents() {
     listenRequestPortNumEvent();
     listenSavePortNumEvent();
     listenRequestHasInfoEvent();

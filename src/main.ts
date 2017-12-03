@@ -6,18 +6,20 @@ import RouteServer from './RouteServer';
 import * as GlobalEvent from './events/GlobalEvents';
 import * as UserInfoApi from './api/UserInfo';
 import * as PortApi from './api/Port';
+import * as LogCollectEvent from './events/LogCollectEvents';
 
 let mainWindow: Electron.BrowserWindow;
 
 function initialize() {
     RouteServer.createRouteServer(PortApi.getProtNum(), mainWindow);
-    UserInfoEvents.registEvent();
+    UserInfoEvents.registEvents();
     GlobalEvent.listenRequestHasInfoEvent(loadURL);
     if (UserInfoApi.hasUserInfo()) {
         loadURL('waiting');
     } else {
         loadURL('setting');
     }
+    LogCollectEvent.registEvents();
 }
 
 function loadURL(hashStr: string) {
