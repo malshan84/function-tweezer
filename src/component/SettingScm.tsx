@@ -4,7 +4,7 @@ import { SvcKind, UserInfo } from '../api/UserInfo';
 
 class SettingScm extends React.Component<{type: SvcKind, addSaveEventListener: Function}, UserInfo> {
 
-   svc: string;
+   private svc: string;
 
    constructor(props: {type: SvcKind, addSaveEventListener: Function}) {
        super(props);
