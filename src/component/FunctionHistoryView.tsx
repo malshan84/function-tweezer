@@ -7,13 +7,15 @@ class FunctionHistoryView extends React.Component<RouteComponentProps<{}>, {} > 
  
     render() {
         return (
-        <div className="wait-layer">
-            <ToolBar />
-            <Switch>
-                <Route exact={true} path={`${this.props.match.url}/:funcName`} component={FunctionDiff}/>
-                <Route exact={true} path={this.props.match.url}  component={Waiting}/>
-            </Switch>
-        </div>
+            <div className="history-layer">
+                <ToolBar />
+                <div className="histroy-contents">
+                    <Switch>
+                        <Route exact={true} path={`${this.props.match.url}/:funcName`} component={FunctionDiff}/>
+                        <Route exact={true} path={this.props.match.url}  component={Waiting}/>
+                    </Switch>
+                </div>
+            </div>
         );
     }
 }
