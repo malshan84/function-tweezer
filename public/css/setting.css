@@ -4,6 +4,7 @@
 	display:flex;
 	align-items:center;
 	justify-content:center;
+	font:600 16px/18px 'Open Sans',sans-serif;
 }
 
 .setting-wrap{
@@ -18,7 +19,7 @@
 	width:100%;
 	height:100%;
 	position:absolute;
-	padding:40px 40px 50px 40px;
+	padding:20px 40px 50px 40px;
 	background:rgb(54, 61, 75);
 }
 .setting-html .svn-htm,
@@ -145,10 +146,15 @@
 }
 
 .setting-title {
-width: 60%;
-margin: auto;
-padding-bottom:40px;
+	width: 80%;
+	margin: auto;
+	padding-bottom:40px;
 }
+
 .setting-title .title {
-font-size:50px;
+	font-size:50px;
+}
+
+.setting-logo {
+	width: 100%;
 }

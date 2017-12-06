@@ -15,7 +15,7 @@ function initialize() {
     UserInfoEvents.registEvents();
     GlobalEvent.listenRequestHasInfoEvent(loadURL);
     if (UserInfoApi.hasUserInfo()) {
-        loadURL('waiting');
+        loadURL('functionHistory');
     } else {
         loadURL('setting');
     }

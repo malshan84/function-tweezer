@@ -1,5 +1,4 @@
 import * as React from 'react';
-import BtnSetting from './BtnSetting';
 
 class Waiting extends React.Component<{}, {}> {
     
@@ -7,7 +6,6 @@ class Waiting extends React.Component<{}, {}> {
 
         return (
         <div className="wait-layer">
-            <BtnSetting />
             <div className="wait-description">
                 <div className="wait-title">
                     <span>There is no function history to show.</span>

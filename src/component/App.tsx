@@ -2,7 +2,7 @@ import * as React from 'react';
 import { HashRouter, Route } from 'react-router-dom';
 
 import Setting from './Setting';
-import Waiting from './Waiting';
+import FunctionHistoryView from './FunctionHistoryView';
 
 class App extends React.Component<{}, {}> {
     constructor(props: {}) {
@@ -14,8 +14,8 @@ class App extends React.Component<{}, {}> {
         return (
             <HashRouter>
                 <div>
-                   <Route exact={true} path="/waiting" component={Waiting} />
                    <Route exact={true} path="/setting" component={Setting} />
+                   <Route path="/functionHistory" component={FunctionHistoryView} />
                 </div>
             </HashRouter>
         );
