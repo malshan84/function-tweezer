@@ -24,15 +24,17 @@ class Setting extends React.Component<{}, SettingState> {
    }
 
     saveAndNext(): void {
-    for (var i = 0; i < this.saveEventListeners.length; i++) { 
-        var _saveEventListener = this.saveEventListeners[i];
-        _saveEventListener();
-     }
-    UserInfoEvent.savePortNumEvent(this.state.portNum);
+        for (var i = 0; i < this.saveEventListeners.length; i++) { 
+            var _saveEventListener = this.saveEventListeners[i];
+            _saveEventListener();
+        }
+        UserInfoEvent.savePortNumEvent(this.state.portNum);
+        window.location.hash = '#/waiting';
+        
    }
 
    addSaveEventListener(saveEventListener: Function): void {
-    this.saveEventListeners.push(saveEventListener);
+        this.saveEventListeners.push(saveEventListener);
    }
 
     render() {

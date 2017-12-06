@@ -1,0 +1,24 @@
+
+.wait-description{
+	position:absolute;
+	top:50px;right:0;bottom:0;left:0;
+	display:flex;
+  align-items:center;
+  flex-direction: column;
+	justify-content:center;
+}
+
+.wait-setting .btn {
+  cursor: pointer;
+}
+
+.wait-title{
+  color: rgb(149, 146, 146);
+  font-size:40px;
+  margin-bottom: 75px
+}
+
+.wait-subtitle{
+  color: rgb(117, 111, 111);
+  font-size:30px;
+}
