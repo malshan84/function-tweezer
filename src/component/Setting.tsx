@@ -29,8 +29,7 @@ class Setting extends React.Component<{}, SettingState> {
             _saveEventListener();
         }
         UserInfoEvent.savePortNumEvent(this.state.portNum);
-        window.location.hash = '#/waiting';
-        
+        window.location.hash = '#/functionHistory';
    }
 
    addSaveEventListener(saveEventListener: Function): void {
@@ -44,7 +43,7 @@ class Setting extends React.Component<{}, SettingState> {
                 <div className="setting-wrap">
                     <div className="setting-html">
                         <div className="setting-title">
-                            <span className="title">Setting</span>
+                            <img className="setting-logo" src="logo.png" />
                         </div>
                         <input id="tab-1" type="radio" name="tab" className="svn" defaultChecked={true}/>
                         <label htmlFor="tab-1" className="tab">SVN </label>
