@@ -1,7 +1,11 @@
 import * as React from 'react';
 import { Diff2Html } from 'diff2html';
-import { RouteComponentProps } from 'react-router-dom';
-class FunctionDiff extends React.Component<RouteComponentProps<{funcName: string}>, {}> { 
+
+interface IProps {
+    funcName: string;
+}
+
+export default class FunctionDiff extends React.Component<IProps, {}> { 
 
     render() {
       
@@ -46,5 +50,3 @@ class FunctionDiff extends React.Component<RouteComponentProps<{funcName: string
         return str;
     }
 }
-
-export default FunctionDiff;

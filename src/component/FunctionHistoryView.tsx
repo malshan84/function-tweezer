@@ -2,7 +2,7 @@ import * as React from 'react';
 import ToolBar from './ToolBar';
 import { Route, Switch, RouteComponentProps } from 'react-router-dom';
 import Waiting from './Waiting';
-import FunctionDiff from './FunctionDiff';
+import FunctionDiff from './FunctionDiffContainer';
 class FunctionHistoryView extends React.Component<RouteComponentProps<{}>, {} > {
  
     render() {
@@ -11,8 +11,19 @@ class FunctionHistoryView extends React.Component<RouteComponentProps<{}>, {} > 
                 <ToolBar />
                 <div className="histroy-contents">
                     <Switch>
-                        <Route exact={true} path={`${this.props.match.url}/:funcName`} component={FunctionDiff}/>
-                        <Route exact={true} path={this.props.match.url}  component={Waiting}/>
+                        {/* <Route exact={true} path={`${this.props.match.url}/:funcName`} component={FunctionDiff}/> */}
+                        <Route 
+                            exact={true} 
+                            path={this.props.match.url}
+                            // component={FunctionDiff}
+                            render={
+                                (props) => <FunctionDiff {...props} methods={[
+                                    { name: 'test()', comment: 'this is dummy...', code: 'void test() {}' },
+                                    { name: 'test2()', comment: 'this is dummy...', code: 'void test2() {}' },
+                                ]}/>
+                            } 
+                        />
+                        {/*<Route exact={true} path={this.props.match.url}  component={Waiting}/>*/}
                     </Switch>
                 </div>
             </div>
