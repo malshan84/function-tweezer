@@ -15,15 +15,16 @@ function showLogEvent() {
     let userInfo: UserInfo = UserinfoApi.getUserInfo(SvcKind.SVN);
     const gitLogCollector = new LogCollector({username: userInfo.id, password: userInfo.pw, kind: 'git'});
     RouteServer.getInstance().addEvent(SHOW_LOG, (req): any => {
+        console.log(req.body);
         const reqInfo: ReqInfo = req.body;
-        let logs: string[];
+        let logs: Log.RevisionInfo[];
         gitLogCollector.getLogWithRange(
             reqInfo.localPath, 
             {startLine: reqInfo.start, endLine: reqInfo.end}, 
             100, 
-            (err: string|null, revs: string[]) => {
+            (err: string|null, revs: Log.RevisionInfo[]) => {
                 if ( err !== null ) {
-                    // error
+                    console.log('error!!');
                 } else {
                     logs = revs;
             }
