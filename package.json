@@ -5,7 +5,8 @@
   "main": "build/dist/main.js",
   "scripts": {
     "start": "tsc & electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "rebuild": "electron-rebuild -f -w better-sqlite3"
   },
   "keywords": [],
   "author": "",
@@ -20,11 +21,16 @@
     "body-parser": "^1.18.2",
     "electron": "^1.8.1",
     "electron-prebuilt-compile": "^1.8.1",
+    "electron-rebuild": "^1.6.0",
     "electron-settings": "^3.1.4",
     "express": "^4.16.2",
     "log-collector": "^1.0.3",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "semantic-ui-css": "^2.2.12",
+    "semantic-ui-react": "^0.77.0",
+    "sqlite3": "^3.1.13",
+    "typescript": "^2.6.2"
   },
   "dependencies": {
     "@types/react-router-dom": "^4.2.3",
