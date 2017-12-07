@@ -1,9 +1,9 @@
-import * as React from 'react'
+import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Grid, Menu } from 'semantic-ui-react'
+import { Grid, Menu } from 'semantic-ui-react';
 import FunctionDiff from './FunctionDiff';
 import { Method } from './models'; 
-import ListExampleTree from './FunctionDiffListComponet'
+import FunctionDiffComponent from './FunctionDiffListComponet';
 
 interface IProps extends RouteComponentProps<{funcName: string}> {
   methods: Method[];
@@ -16,10 +16,10 @@ interface IState {
 
 export default class FunctionDiffContainer extends React.Component<IProps, IState> { 
   
-  constructor(props: IProps){
+  constructor(props: IProps) {
       super(props);
       this.state = {
-        activeItem: "promotions",
+        activeItem: 'promotions',
         methods: props.methods,
       };
   }
@@ -28,7 +28,7 @@ export default class FunctionDiffContainer extends React.Component<IProps, IStat
     this.setState({methods: props.methods});
   }
 
-  handleItemClick = (e: React.MouseEvent<HTMLAnchorElement>, { name }) => this.setState({ activeItem: name })
+  handleItemClick = (e: React.MouseEvent<HTMLAnchorElement>, { name }) => this.setState({ activeItem: name } );
 
   render() {
     const {match, location, history, staticContext, methods, ...rest} = this.props;
@@ -37,7 +37,7 @@ export default class FunctionDiffContainer extends React.Component<IProps, IStat
     return (
       <Grid>
         <Grid.Column width={3}>
-          <Menu fluid vertical tabular>
+          <Menu fluid={true} vertical={true} tabular={true}>
             {
               methods ?
                 methods.map((val: Method) => (
@@ -47,9 +47,7 @@ export default class FunctionDiffContainer extends React.Component<IProps, IStat
                       active={activeItem === val.name}
                       onClick={this.handleItemClick}
                       content={
-                        //<Card header={val.name} description={val.comment} color={activeItem === val.name ? 'purple' : null}/>
-                        <ListExampleTree method = {val} activeItem={activeItem} /> 
-                      }
+                        <FunctionDiffComponent method={val} activeItem={activeItem} />}
                     />
                   ))
                   : null
@@ -57,10 +55,10 @@ export default class FunctionDiffContainer extends React.Component<IProps, IStat
           </Menu>
         </Grid.Column>
 
-        <Grid.Column stretched width={12}>
+        <Grid.Column stretched={true} width={12}>
           <FunctionDiff {...rest} />
         </Grid.Column>
       </Grid>
-    )
+    );
   }
 }

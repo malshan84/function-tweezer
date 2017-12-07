@@ -1,10 +1,9 @@
-import * as React from 'react'
-import { List, Card } from 'semantic-ui-react'
+import * as React from 'react';
+import { List, Card } from 'semantic-ui-react';
 import { Method } from './models'; 
 
-interface IProps 
-{
-    activeItem:string;
+interface IProps {
+    activeItem: string;
     method: Method;
 }
 
@@ -13,9 +12,9 @@ interface IState {
     method: Method;
 }
 
-export default class ListExampleTree extends React.Component<IProps, IState> {     
+export default class FunctionDiffComponent extends React.Component<IProps, IState> {     
     
-    constructor(props: IProps){
+    constructor(props: IProps) {
         super(props);
         this.state = { 
             activeItem: props.activeItem,
@@ -24,13 +23,19 @@ export default class ListExampleTree extends React.Component<IProps, IState> {
     }
 
     render() {
-        const { method ,activeItem, ...rest } = this.props;
+        const { method , activeItem, ...rest } = this.props;
     
         return (
             <List>
                 <List.Item>
                 <List.Content>
-                    <List.Header><Card header={method.name} description={method.comment} color={activeItem === method.name ? 'purple' : null}/></List.Header>
+                    <List.Header>
+                        <Card 
+                            header={method.name} 
+                            description={method.comment} 
+                            color={activeItem === method.name ? 'purple' : null}
+                        />
+                    </List.Header>
                     <List.List>
                     <List.Item>
                         <List.Content>
@@ -48,6 +53,6 @@ export default class ListExampleTree extends React.Component<IProps, IState> {
                 </List.Content>
                 </List.Item>
             </List>
-        )
+        );
     }
 }

@@ -4,7 +4,7 @@ import { ipcRenderer } from 'electron';
 import * as UserinfoApi from '../api/UserInfo';
 import { UserInfo, SvcKind } from '../api/UserInfo';
 
-interface ReqInfo {
+interface IReqInfo {
     start: number;
     end: number;
     localPath: string;
@@ -16,7 +16,7 @@ function showLogEvent() {
     const gitLogCollector = new LogCollector({username: userInfo.id, password: userInfo.pw, kind: 'git'});
     RouteServer.getInstance().addEvent(SHOW_LOG, (req): any => {
         console.log(req.body);
-        const reqInfo: ReqInfo = req.body;
+        const reqInfo: IReqInfo = req.body;
         let infos: Log.RevisionInfo[];
 
         gitLogCollector.getLogWithRange(
