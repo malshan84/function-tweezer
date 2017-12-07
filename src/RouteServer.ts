@@ -32,7 +32,7 @@ export default class RouteServer {
     public addEvent(eventName: string, event: (req: express.Request) => any) {
         this._app.post(`/${eventName}`, (req: express.Request, res: express.Response) => {
             this._mainWindow.webContents.send(eventName, event(req));
-            res.send(req.body);
+            res.send('OK');
         });
     }
 
