@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ToolBar from './ToolBar';
 import { Route, Switch, RouteComponentProps } from 'react-router-dom';
-import Waiting from './Waiting';
+// import Waiting from './Waiting';
 import FunctionDiff from './FunctionDiffContainer';
 class FunctionHistoryView extends React.Component<RouteComponentProps<{}>, {} > {
  

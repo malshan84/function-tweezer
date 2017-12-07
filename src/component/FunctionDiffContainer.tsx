@@ -21,7 +21,7 @@ export default class FunctionDiffContainer extends React.Component<IProps, IStat
   constructor(props: IProps) {
       super(props);
       this.state = {
-        showReply : false,
+        showReply: false,
         activeItem: 'promotions',
         methods: props.methods,
       };
@@ -64,7 +64,7 @@ export default class FunctionDiffContainer extends React.Component<IProps, IStat
                             <List.Item>
                             {this.state.showReply 
                               && activeItem === val.name ? 
-                              <FunctionDiffSubComponent method={val} activeItem={activeItem} /> : null}
+                              <FunctionDiffSubComponent method={val} /> : null}
                             </List.Item>
                           </List>
                         </div>}

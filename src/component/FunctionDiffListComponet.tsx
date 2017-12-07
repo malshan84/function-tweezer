@@ -23,7 +23,7 @@ export default class FunctionDiffComponent extends React.Component<IProps, IStat
     }
 
     render() {
-        const { method , activeItem, ...rest } = this.props;
+        const { method , activeItem } = this.props;
     
         return (
             <List.Content>

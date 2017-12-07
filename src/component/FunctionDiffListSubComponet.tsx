@@ -3,12 +3,10 @@ import { List } from 'semantic-ui-react';
 import { Method } from './models'; 
 
 interface IProps {
-    activeItem: string;
     method: Method;
 }
 
 interface IState {
-    activeItem: string;
     method: Method;
 }
 
@@ -17,13 +15,12 @@ export default class FunctionDiffSubComponent extends React.Component<IProps, IS
     constructor(props: IProps) {
         super(props);
         this.state = { 
-            activeItem: props.activeItem,
             method: props.method,
         };
     }
 
     render() {
-        const { method , activeItem, ...rest } = this.props;
+        const { method } = this.props;
     
         return (
             <List.List>
