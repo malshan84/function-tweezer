@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { RouteComponentProps } from 'react-router-dom';
-import { Card, Grid, Menu } from 'semantic-ui-react'
+import { Grid, Menu } from 'semantic-ui-react'
 import FunctionDiff from './FunctionDiff';
 import { Method } from './models'; 
+import ListExampleTree from './FunctionDiffListComponet'
 
 interface IProps extends RouteComponentProps<{funcName: string}> {
   methods: Method[];
@@ -35,7 +36,7 @@ export default class FunctionDiffContainer extends React.Component<IProps, IStat
 
     return (
       <Grid>
-        <Grid.Column width={4}>
+        <Grid.Column width={3}>
           <Menu fluid vertical tabular>
             {
               methods ?
@@ -46,7 +47,8 @@ export default class FunctionDiffContainer extends React.Component<IProps, IStat
                       active={activeItem === val.name}
                       onClick={this.handleItemClick}
                       content={
-                        <Card header={val.name} description={val.comment} color={activeItem === val.name ? 'purple' : null}/>
+                        //<Card header={val.name} description={val.comment} color={activeItem === val.name ? 'purple' : null}/>
+                        <ListExampleTree method = {val} activeItem={activeItem} /> 
                       }
                     />
                   ))
