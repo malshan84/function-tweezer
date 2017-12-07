@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Grid, Menu } from 'semantic-ui-react';
+import { Grid, Menu, List, MenuItemProps } from 'semantic-ui-react';
 import FunctionDiff from './FunctionDiff';
 import { Method } from './models'; 
 import FunctionDiffComponent from './FunctionDiffListComponet';
+import FunctionDiffSubComponent from './FunctionDiffListSubComponet';
 
 interface IProps extends RouteComponentProps<{funcName: string}> {
   methods: Method[];
@@ -28,7 +29,9 @@ export default class FunctionDiffContainer extends React.Component<IProps, IStat
     this.setState({methods: props.methods});
   }
 
-  handleItemClick = (e: React.MouseEvent<HTMLAnchorElement>, { name }) => this.setState({ activeItem: name } );
+  handleItemClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,  data: MenuItemProps ) => 
+    this.setState({ activeItem: data.name } )
 
   render() {
     const {match, location, history, staticContext, methods, ...rest} = this.props;
@@ -47,7 +50,18 @@ export default class FunctionDiffContainer extends React.Component<IProps, IStat
                       active={activeItem === val.name}
                       onClick={this.handleItemClick}
                       content={
-                        <FunctionDiffComponent method={val} activeItem={activeItem} />}
+                        <div>
+                          <List>
+                            <List.Item>
+                              <FunctionDiffComponent method={val} activeItem={activeItem} />
+                            </List.Item>
+                            <List.Item>
+                              <FunctionDiffSubComponent method={val} activeItem={activeItem} />
+                            </List.Item>
+                          </List>
+                        </div>
+                        
+                      }
                     />
                   ))
                   : null

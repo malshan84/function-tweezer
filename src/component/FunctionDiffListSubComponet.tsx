@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { List, Card } from 'semantic-ui-react';
+import { List } from 'semantic-ui-react';
 import { Method } from './models'; 
 
 interface IProps {
@@ -12,7 +12,7 @@ interface IState {
     method: Method;
 }
 
-export default class FunctionDiffComponent extends React.Component<IProps, IState> {     
+export default class FunctionDiffSubComponent extends React.Component<IProps, IState> {     
     
     constructor(props: IProps) {
         super(props);
@@ -26,13 +26,14 @@ export default class FunctionDiffComponent extends React.Component<IProps, IStat
         const { method , activeItem, ...rest } = this.props;
     
         return (
-            <List.Content>
-                <Card 
-                    header={method.name} 
-                    description={method.comment} 
-                    color={activeItem === method.name ? 'purple' : null}
-                />
-            </List.Content>
+            <List.List>
+                <List.Item>
+                    <List.Content
+                        header={method.name} 
+                        description={method.comment} 
+                    />
+                </List.Item>
+            </List.List>                            
         );
     }
 }
