@@ -55,10 +55,10 @@ class Setting extends React.Component<{}, SettingState> {
                             <SettingScm type={SvcKind.GIT} addSaveEventListener={this.addSaveEventListener}/>
                         </div>
 
-                        <div className="hr"/>
+                        <div className="setting-hr"/>
                         <div className="ft_port">
                             <div className="group">
-                                <label htmlFor="portnum" className="label"/>
+                                <label htmlFor="portnum" className="label">FT PORT </label>
                                 <input 
                                     id="portnum" 
                                     type="number" 

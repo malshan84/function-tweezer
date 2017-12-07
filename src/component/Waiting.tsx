@@ -5,7 +5,6 @@ class Waiting extends React.Component<{}, {}> {
     render() {
 
         return (
-        <div className="wait-layer">
             <div className="wait-description">
                 <div className="wait-title">
                     <span>There is no function history to show.</span>
@@ -14,7 +13,6 @@ class Waiting extends React.Component<{}, {}> {
                 <span>Select the function in the IDE.</span>
                 </div>
             </div>
-        </div>
         );
     }
 }
