@@ -17,7 +17,8 @@ function showLogEvent() {
     RouteServer.getInstance().addEvent(SHOW_LOG, (req): any => {
         console.log(req.body);
         const reqInfo: ReqInfo = req.body;
-        let logs: Log.RevisionInfo[];
+        let infos: Log.RevisionInfo[];
+
         gitLogCollector.getLogWithRange(
             reqInfo.localPath, 
             {startLine: reqInfo.start, endLine: reqInfo.end}, 
@@ -26,10 +27,11 @@ function showLogEvent() {
                 if ( err !== null ) {
                     console.log('error!!');
                 } else {
-                    logs = revs;
+                    infos = revs;
             }
         });
-        return logs;
+
+        return infos;
     });
 }
 
