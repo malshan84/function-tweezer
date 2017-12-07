@@ -11,6 +11,7 @@ interface IProps extends RouteComponentProps<{funcName: string}> {
 }
 
 interface IState {
+  showReply: boolean;
   activeItem: string;
   methods: Method[];
 }
@@ -20,6 +21,7 @@ export default class FunctionDiffContainer extends React.Component<IProps, IStat
   constructor(props: IProps) {
       super(props);
       this.state = {
+        showReply : false,
         activeItem: 'promotions',
         methods: props.methods,
       };
@@ -27,6 +29,10 @@ export default class FunctionDiffContainer extends React.Component<IProps, IStat
 
   componentWillReceiveProps(props: IProps) {
     this.setState({methods: props.methods});
+  }
+  
+  onClick = (e: React.MouseEvent<HTMLAnchorElement> ) => { 
+    this.setState({showReply: !this.state.showReply});
   }
 
   handleItemClick = (
@@ -50,18 +56,18 @@ export default class FunctionDiffContainer extends React.Component<IProps, IStat
                       active={activeItem === val.name}
                       onClick={this.handleItemClick}
                       content={
-                        <div>
-                          <List>
+                        <div onClick={this.onClick.bind(this)}>
+                          <List >
                             <List.Item>
                               <FunctionDiffComponent method={val} activeItem={activeItem} />
                             </List.Item>
                             <List.Item>
-                              <FunctionDiffSubComponent method={val} activeItem={activeItem} />
+                            {this.state.showReply 
+                              && activeItem === val.name ? 
+                              <FunctionDiffSubComponent method={val} activeItem={activeItem} /> : null}
                             </List.Item>
                           </List>
-                        </div>
-                        
-                      }
+                        </div>}
                     />
                   ))
                   : null
