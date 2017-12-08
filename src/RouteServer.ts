@@ -10,6 +10,7 @@ interface IReqInfo {
     start: number;
     end: number;
     localPath: string;
+    discripttion: string;
 }
 
 export default class RouteServer {
@@ -68,6 +69,7 @@ export default class RouteServer {
                     }
                 }
             );
+            res.send('OK');
         });
     }
 
