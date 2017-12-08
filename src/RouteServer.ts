@@ -5,11 +5,11 @@ import * as LogCollector from 'log-collector';
 import * as UserinfoApi from './api/UserInfo';
 import { UserInfo, SvcKind } from './api/UserInfo';
 
-
 interface IReqInfo {
     start: number;
     end: number;
     localPath: string;
+    description: string;
 }
 
 export default class RouteServer {
@@ -68,6 +68,7 @@ export default class RouteServer {
                     }
                 }
             );
+            res.send('OK');
         });
     }
 
