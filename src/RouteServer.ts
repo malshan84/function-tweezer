@@ -1,6 +1,16 @@
 import * as express from 'express';
 import * as http from 'http';
 import * as bodyParser from 'body-parser';
+import * as LogCollector from 'log-collector';
+import * as UserinfoApi from './api/UserInfo';
+import { UserInfo, SvcKind } from './api/UserInfo';
+
+
+interface IReqInfo {
+    start: number;
+    end: number;
+    localPath: string;
+}
 
 export default class RouteServer {
     private static instance: RouteServer = undefined;
@@ -31,8 +41,33 @@ export default class RouteServer {
 
     public addEvent(eventName: string, event: (req: express.Request) => any) {
         this._app.post(`/${eventName}`, (req: express.Request, res: express.Response) => {
-            this._mainWindow.webContents.send(eventName, event(req));
-            res.send('OK');
+            const mainWindow = this._mainWindow;
+            function callEvent() {
+                mainWindow.webContents.send(eventName, event(req));
+            }
+            callEvent();      
+            res.on('OK', callEvent);
+        });
+    }    
+
+    public addShowLogEvent(eventName: string) {
+        this._app.post(`/${eventName}`, (req: express.Request, res: express.Response) => {
+            console.log(req.body);
+            const reqInfo: IReqInfo = req.body;
+            let userInfo: UserInfo = UserinfoApi.getUserInfo(SvcKind.SVN);
+            const gitLogCollector = new LogCollector({ username: userInfo.id, password: userInfo.pw, kind: 'git' });
+            gitLogCollector.getLogWithRange(
+                reqInfo.localPath,
+                { startLine: reqInfo.start, endLine: reqInfo.end },
+                10,
+                (err: string | null, revs: Log.RevisionInfo[]) => {
+                    if (err !== null) {
+                        console.log(err);
+                    } else {
+                        this._mainWindow.webContents.send(eventName, revs);
+                    }
+                }
+            );
         });
     }
 
