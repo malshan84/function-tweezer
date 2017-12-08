@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { List } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 import { Method } from './models'; 
 
 interface IProps {
@@ -23,14 +23,9 @@ export default class FunctionDiffSubComponent extends React.Component<IProps, IS
         const { method } = this.props;
     
         return (
-            <List.List>
-                <List.Item>
-                    <List.Content
-                        header={method.name} 
-                        description={method.comment} 
-                    />
-                </List.Item>
-            </List.List>                            
+            <Card.Content extra={true}>
+                <Card.Description> {method.code}</Card.Description>
+            </Card.Content>
         );
     }
 }
