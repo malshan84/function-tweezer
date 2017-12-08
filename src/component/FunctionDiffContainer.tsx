@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Card, MenuItemProps } from 'semantic-ui-react';
-import { Sidebar, Segment, Button, Menu } from 'semantic-ui-react';
+import { Sidebar, Segment, Button, Menu, Grid } from 'semantic-ui-react';
 import FunctionDiff from './FunctionDiff';
 import { Method } from './models'; 
 import FunctionDiffComponent from './FunctionDiffListComponet';
@@ -52,7 +52,7 @@ export default class FunctionDiffListSidebar extends React.Component<IProps, ISt
 
     return (
       <div className="histroy-contents">
-        <Button onClick={this.toggleVisibility}>Toggle Visibility</Button>
+        {/* <Button onClick={this.toggleVisibility}>Toggle Visibility</Button> */}
         <Sidebar.Pushable as={Segment}> 
           <Sidebar as={Menu} animation="uncover" width="wide" visible={visible} icon="labeled" vertical={true} >
             <Menu fluid={true} pointing={true} secondary={true} vertical={true}>  
@@ -80,7 +80,23 @@ export default class FunctionDiffListSidebar extends React.Component<IProps, ISt
               </Sidebar>
             <Sidebar.Pusher>
               <Segment basic={true}>
-                <FunctionDiff {...rest} />
+                <Grid>
+                  <Grid.Row>
+                    <Grid.Column>
+                        <Button 
+                        onClick={this.toggleVisibility} 
+                        circular={true} 
+                        icon={visible ? 'chevron left' : 'chevron right'}
+                        />
+                        <Button circular={true} icon="settings" />
+                    </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                    <Grid.Column width={15}>
+                      <FunctionDiff {...rest} />
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid> 
               </Segment>
             </Sidebar.Pusher>
           </Sidebar.Pushable>
