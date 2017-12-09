@@ -2,7 +2,7 @@ import { ipcRenderer } from 'electron';
 import RouteServer from '../RouteServer';
 
 export interface IRevisionInfo {
-    revnum: string;
+    name: string;
     author: string;
     message: string;
     date: string;

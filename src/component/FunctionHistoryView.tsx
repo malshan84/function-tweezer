@@ -1,34 +1,42 @@
 import * as React from 'react';
-import ToolBar from './ToolBar';
-import { Route, Switch, RouteComponentProps } from 'react-router-dom';
-// import Waiting from './Waiting';
-import FunctionDiff from './FunctionDiffContainer';
-class FunctionHistoryView extends React.Component<RouteComponentProps<{}>, {} > {
- 
+import * as LogCollectEvents from '../events/LogCollectEvents';
+import Waiting from './Waiting';
+import FunctionDiffContainer from './FunctionDiffContainer';
+
+interface IState {
+    revisions: LogCollectEvents.IRevisionInfo[];
+}
+
+class FunctionHistoryView extends React.Component<{}, IState > {
+    
+    constructor(props: IState) {
+        super(props);
+        this.setLogState = this.setLogState.bind(this);
+        LogCollectEvents.listenShowLog(this.setLogState);
+        this.state = {
+           revisions: []
+        };
+        
+    }
+
+    setLogState(revisions: LogCollectEvents.IRevisionInfo[]) {
+        this.setState({revisions: revisions});
+        
+   }
+    
     render() {
-        return (
-            <div className="history-layer">
-                <ToolBar />
-                <div className="histroy-contents">
-                    <Switch>
-                        {/* <Route exact={true} path={`${this.props.match.url}/:funcName`} 
-                            component={FunctionDiff}/> */}
-                        <Route 
-                            exact={true} 
-                            path={this.props.match.url}
-                            // component={FunctionDiff}
-                            render={
-                                // tslint:disable-next-line:jsx-alignment
-                                (props) => <FunctionDiff {...props} methods={[
-                                    { name: 'test()', comment: 'this is dummy...', code: 'void test() {}' },
-                                    { name: 'test2()', comment: 'this is dummy...', code: 'void test2() {}' }]}
-                                />} 
-                        />
-                        {/*<Route exact={true} path={this.props.match.url}  component={Waiting}/>*/}
-                    </Switch>
+        if (this.state.revisions.length > 0) {
+            return (
+                <div className="history-layer">
+                    <FunctionDiffContainer revisions={...this.state.revisions}/>
                 </div>
-            </div>
-        );
+            );
+         
+         } 
+
+        return (
+            <Waiting />
+         );
     }
 }
 

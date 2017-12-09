@@ -1,21 +1,21 @@
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
 import { Card, MenuItemProps } from 'semantic-ui-react';
 import { Sidebar, Segment, Button, Menu, Grid } from 'semantic-ui-react';
 import FunctionDiff from './FunctionDiff';
-import { Method } from './models'; 
 import FunctionDiffComponent from './FunctionDiffListComponet';
 import FunctionDiffSubComponent from './FunctionDiffListSubComponet';
+import * as LogCollectEvents from '../events/LogCollectEvents';
+import { SvcKind } from '../api/UserInfo';
 
-interface IProps extends RouteComponentProps<{funcName: string}> {
-  methods: Method[];
+interface IProps {
+  revisions: LogCollectEvents.IRevisionInfo[];
 }
 
 interface IState {
   visible: boolean;
   showReply: boolean;
-  activeItem: string;
-  methods: Method[];
+  activeItem: number;
+  methods: LogCollectEvents.IRevisionInfo[];
 }
 
 export default class FunctionDiffListSidebar extends React.Component<IProps, IState> { 
@@ -25,13 +25,14 @@ export default class FunctionDiffListSidebar extends React.Component<IProps, ISt
       this.state = {
         showReply: false,
         visible: true,
-        activeItem: 'promotions',
-        methods: props.methods,
+        activeItem: 0,
+        methods: props.revisions
       };
+      
   }
 
   componentWillReceiveProps(props: IProps) {
-    this.setState({methods: props.methods});
+    this.setState({methods: props.revisions});
   }
   
   onClick = (e: React.MouseEvent<HTMLAnchorElement> ) => { 
@@ -43,57 +44,62 @@ export default class FunctionDiffListSidebar extends React.Component<IProps, ISt
   }
 
   handleItemClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,  data: MenuItemProps ) => 
-    this.setState({ activeItem: data.name } )
+    e: React.MouseEvent<HTMLAnchorElement>,  data: MenuItemProps ) => {
+    console.log(data.index);
+    this.setState({ activeItem: data.index } );
+  }
 
   render() {
-    const {match, location, history, staticContext, methods, ...rest} = this.props;
+    const {revisions} = this.props;
     const {activeItem, visible , showReply} = this.state;
 
     return (
       <div className="histroy-contents">
-        {/* <Button onClick={this.toggleVisibility}>Toggle Visibility</Button> */}
         <Sidebar.Pushable as={Segment}> 
           <Sidebar as={Menu} animation="uncover" width="wide" visible={visible} icon="labeled" vertical={true} >
             <Menu fluid={true} pointing={true} secondary={true} vertical={true}>  
-                  {
-                    methods ?
-                      methods.map((val: Method) => (
-                          <Menu.Item
-                            key={val.name}
-                            name={val.name}
-                            active={activeItem === val.name}
-                            onClick={this.handleItemClick}
-                            content={
-                              <div onClick={this.onClick.bind(this)}>
-                                <Card>
-                                  <FunctionDiffComponent method={val}/>
-                                  { showReply && (activeItem === val.name) ? 
-                                  <FunctionDiffSubComponent method={val} /> : null}
-                                </Card>
-                              </div>}
-                          />
-                        ))
-                        : null
-                  }
-                </Menu>
-              </Sidebar>
+              {
+                  revisions ?
+                  revisions.map((val, index) => (
+                      <Menu.Item
+                        index={index}
+                        key={val.name}
+                        name={val.name}
+                        active={activeItem === index}
+                        onClick={this.handleItemClick}
+                        content={
+                          <div onClick={this.onClick.bind(this)}>
+                            <Card>
+                              <FunctionDiffComponent method={val}/>
+                              { showReply && (activeItem === index) ? 
+                              <FunctionDiffSubComponent method={val} /> : null}
+                            </Card>
+                          </div>}
+                      />
+                    ))
+                    : null
+              }
+            </Menu>
+          </Sidebar>
             <Sidebar.Pusher>
               <Segment basic={true}>
                 <Grid>
                   <Grid.Row>
                     <Grid.Column>
                         <Button 
-                        onClick={this.toggleVisibility} 
-                        circular={true} 
-                        icon={visible ? 'chevron left' : 'chevron right'}
+                          onClick={this.toggleVisibility} 
+                          circular={true} 
+                          icon={visible ? 'chevron left' : 'chevron right'}
                         />
                         <Button circular={true} icon="settings" />
                     </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
                     <Grid.Column width={15}>
-                      <FunctionDiff {...rest} />
+                      <FunctionDiff 
+                        diffString={revisions[activeItem].diff}
+                        scmType={SvcKind.GIT} 
+                      />
                     </Grid.Column>
                   </Grid.Row>
                 </Grid> 

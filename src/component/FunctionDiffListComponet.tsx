@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { Card } from 'semantic-ui-react';
-import { Method } from './models'; 
+// import { Method } from './models'; 
+import * as LogCollectEvents from '../events/LogCollectEvents';
 
 interface IProps {
-    method: Method;
+    method:  LogCollectEvents.IRevisionInfo;
 }
 
 interface IState {
-    method: Method;
+    method:  LogCollectEvents.IRevisionInfo;
 }
 
 export default class FunctionDiffComponent extends React.Component<IProps, IState> {     
@@ -23,10 +24,7 @@ export default class FunctionDiffComponent extends React.Component<IProps, IStat
         const { method } = this.props;
     
         return (
-            <Card.Content 
-                header={method.name} 
-                description={method.comment} 
-            />
+            <Card.Content textAlign="left" header={method.name} description={method.date} />
         );
     }
 }

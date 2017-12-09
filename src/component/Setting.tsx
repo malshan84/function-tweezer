@@ -3,11 +3,11 @@ import * as UserInfoEvent from '../events/UserInfoEvents';
 import { SvcKind } from '../api/UserInfo';
 import SettingScm from './SettingScm';
 
-interface SettingState {
+interface ISettingState {
     portNum: number;
 }
 
-class Setting extends React.Component<{}, SettingState> {
+class Setting extends React.Component<{}, ISettingState> {
     saveEventListeners: Function[];
 
    constructor(props: {}) {
