@@ -19,21 +19,26 @@ class FunctionHistoryView extends React.Component<{}, IState > {
         
     }
 
-    setLogState(revisions: LogCollectEvents.IRevisionInfo[]) {
-        this.setState({revisions: revisions});
-        
+    setLogState(methods: LogCollectEvents.IRevisionInfo[]) {
+        console.log(methods);
+        this.setState({revisions: methods});
+   }
+   componentWillMount() {
+        LogCollectEvents.listenShowLog(this.setLogState);
+   }
+   componentWillUnmount() {
+      // listenShowLog 제거 해야함.
    }
     
     render() {
         if (this.state.revisions.length > 0) {
             return (
                 <div className="history-layer">
-                    <FunctionDiffContainer revisions={...this.state.revisions}/>
+                    <img className="historyview-logo" src="logo2.png" />
+                    <FunctionDiffContainer methods={...this.state.revisions}/>
                 </div>
             );
-         
          } 
-
         return (
             <Waiting />
          );

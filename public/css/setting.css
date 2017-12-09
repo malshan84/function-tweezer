@@ -91,7 +91,7 @@
 	font-size:12px;
 }
 .setting_confirm .button{
-	margin-top:30px;
+	margin-top:20px;
 	background:#152646;
 }
 .setting-form .group label .icon{
@@ -143,7 +143,7 @@
 
 .setting-hr{
 	height:2px;
-	margin:30px 0 10px 0;
+	margin:40px 0 10px 0;
 	background:rgba(255,255,255,.2);
 }
 

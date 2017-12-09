@@ -1,7 +1,39 @@
 .histroy-contents{
     position: absolute;
-    top: 40px;
+    top: 50px;
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+}
+.historyview-logo {
+    height: 40px;
+    margin-left: 10px;
+}
+
+.pusher.left{
+    width: calc(100% - 350px);
+}
+
+
+.pusher.right{
+    width: 100%
+}
+
+.ui.basic.segment{
+    position: absolute;
+    top: 0;
     right: 0;
     bottom: 0;
     left: 0;
+    margin-top: -8px;
+}
+
+body ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 10px;
+    height: 10px;
+}
+
+.ui.card {
+	width: 100%;
 }
