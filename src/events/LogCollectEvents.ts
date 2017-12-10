@@ -20,6 +20,11 @@ export function listenShowLog(eventFunc: (revisions: IRevisionInfo[]) => void) {
     });
 }
 
+export function removeListenerShowLog() {
+    ipcRenderer.removeAllListeners(SHOW_LOG);
+
+}
+
 export function registEvents () {
     showLogEvent();
 }
