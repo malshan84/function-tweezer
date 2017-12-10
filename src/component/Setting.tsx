@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as UserInfoEvent from '../events/UserInfoEvents';
 import { SvcKind } from '../api/UserInfo';
 import SettingScm from './SettingScm';
+import { ChangeEvent } from 'react';
 
 interface ISettingState {
     portNum: number;
@@ -36,6 +37,14 @@ class Setting extends React.Component<{}, ISettingState> {
         this.saveEventListeners.push(saveEventListener);
    }
 
+   changeTheme(event: ChangeEvent<HTMLInputElement>): void {
+        if (event.target.checked) {
+            document.getElementsByTagName('body')[0].classList.add('dark');
+        } else {
+            document.getElementsByTagName('body')[0].classList.remove('dark');
+        }
+   }
+
     render() {
         return (
             
@@ -43,13 +52,13 @@ class Setting extends React.Component<{}, ISettingState> {
                 <div className="setting-wrap">
                     <div className="setting-html">
                         <div className="setting-title">
-                            <img className="setting-logo" src="logo.png" />
+                            <img className="setting-logo" src="logo_white.png" />
                         </div>
                         <input id="tab-1" type="radio" name="tab" className="svn" defaultChecked={true}/>
                         <label htmlFor="tab-1" className="tab">SVN </label>
                         <input id="tab-2" type="radio" name="tab" className="git"/>
                         <label htmlFor="tab-2" className="tab">GIT </label>
-                      
+
                         <div className="setting-form">
                             <SettingScm type={SvcKind.SVN} addSaveEventListener={this.addSaveEventListener}/>
                             <SettingScm type={SvcKind.GIT} addSaveEventListener={this.addSaveEventListener}/>
@@ -71,6 +80,10 @@ class Setting extends React.Component<{}, ISettingState> {
                         <div className="setting_confirm">
                             <input type="submit" className="button" value="Confirm" onClick={this.saveAndNext}/>
                         </div>
+                    </div>
+                    <div className="themeSwitch">
+                        <input type="checkbox" id="theme" className="switch dark" defaultChecked={true} onChange={this.changeTheme}/>
+                        <label htmlFor="theme"/>
                     </div>
                 </div>
             </div>

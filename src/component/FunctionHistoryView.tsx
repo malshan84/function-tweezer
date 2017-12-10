@@ -34,7 +34,7 @@ class FunctionHistoryView extends React.Component<{}, IState > {
         if (this.state.revisions.length > 0) {
             return (
                 <div className="history-layer">
-                    <img className="historyview-logo" src="logo2.png" />
+                    <img className="historyview-logo" src="logo_black.png" />
                     <FunctionDiffContainer methods={...this.state.revisions}/>
                 </div>
             );

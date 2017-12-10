@@ -1,0 +1,131 @@
+body.dark {
+    background: #36393f
+}
+.dark .history-contents .ui.segment {
+    background: #36393e;
+}
+.dark .history-contents .ui.segment .sidebar {
+    background: #2f3136;
+}
+
+.dark .history-contents .ui.card, .history-contents .ui.card>.card {
+    box-shadow: none;
+    background: #36393e;
+}
+
+.dark .history-contents{
+    border-top: solid #292b2e 2px;
+}
+
+.dark .functiondiff-wrapper {
+    background: #36393e;
+}
+
+.dark .ui.card>.content>.header, .ui.cards>.card>.content>.header,
+.dark .ui.card>.content>.description, .ui.cards>.card>.content>.description {
+    color: white;
+}
+
+.dark .menu-hr {
+    background:#292b2e;
+}
+
+.dark .history-contents{
+    border-top: solid #292b2e 2px;
+}
+
+.dark .historyview-logo{
+	content:url("../logo_white.png");
+}
+
+.dark .d2h-wrapper {
+    background-color:#404040;
+}
+
+.dark .d2h-file-header {
+    border-bottom: 1px solid #343640;
+    background-color: #343640;
+}
+.dark .d2h-file-name {
+    color: #fdfdfd;
+}
+
+.dark .d2h-file-wrapper {
+    border: 1px solid #505050;
+}
+.dark .d2h-code-line del,
+.dark .d2h-code-side-line del {
+    background-color: #f3b2b5;
+}
+
+.dark .d2h-code-line ins,
+.dark .d2h-code-side-line ins {
+    background-color: #0a4609;
+}
+.dark .d2h-code-line-ctn {
+    color: rgb(132, 132, 132);
+}
+.dark .line-num1 {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+}
+.dark .line-num2 {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+}
+.dark .d2h-code-linenumber {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: #404040;
+    color: rgb(132, 132, 132);
+    border: solid #000000;
+    border-width: 0 1px 0 1px;
+}
+.dark .d2h-code-side-linenumber {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: #404040;
+    color: rgb(132, 132, 132);
+    border: solid #000000;
+    border-width: 0 1px 0 1px;
+  }
+
+  /*
+ * Changes Highlight
+ */
+
+.dark .d2h-del {
+    background-color: rgba(218, 191, 192, 0.77);
+    border-color: #000000;
+  }
+  
+.dark .d2h-ins {
+    background-color: #4e754e;
+    border-color: #000000;
+}
+  
+.dark .d2h-info {
+    background-color: #2b2b2b;
+    color: rgb(239, 239, 239);
+    border-color: #000000;
+}
+
+
+
+.dark .setting-form .group .label, .dark .ft_port .group .label {
+    color:#aaa;
+	font-size:12px;
+}
+
+.dark .setting-html {
+    background:rgb(54, 61, 75); 
+}
+
+.dark .setting_confirm .button {
+    background:#152646;
+}
+
+.dark .setting-form .group .input, .dark .ft_port .group .input, .dark .setting_confirm .button {
+    border-radius:25px;
+    border: none;
+}

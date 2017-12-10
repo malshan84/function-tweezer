@@ -34,14 +34,13 @@ function loadURL(hashStr: string) {
 }
 
 function createWindow() {
-    mainWindow = new BrowserWindow({ width: 800, height: 600 });
+    mainWindow = new BrowserWindow({ width: 1000, height: 800 });
     console.log('start electron');
 
     // hide menu bar
     mainWindow.setMenu(null);
-
-    mainWindow.webContents.openDevTools();
-
+    
+    mainWindow.webContents.openDevTools({mode: 'detach'});
     mainWindow.on('closed', function () {
         mainWindow = null;
     });

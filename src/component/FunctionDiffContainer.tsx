@@ -63,7 +63,7 @@ export default class FunctionDiffListSidebar extends React.Component<IProps, ISt
     const {activeItem, visible , showReply, sideByside} = this.state;
 
     return (
-      <div className="histroy-contents">
+      <div className="history-contents">
         <Sidebar.Pushable as={Segment}> 
           <Sidebar as={Menu} animation="uncover" width="wide" visible={visible} icon="labeled" vertical={true} >
             <Menu fluid={true} pointing={true} secondary={true} vertical={true}>  
@@ -92,6 +92,12 @@ export default class FunctionDiffListSidebar extends React.Component<IProps, ISt
           </Sidebar>
             <Sidebar.Pusher className={visible ? 'left' : 'right'}>
               <Segment basic={true}>
+                  <FunctionDiff 
+                    diffString={methods[activeItem].diff}
+                    scmType={SvcKind.GIT}
+                    sideBySide={sideByside}
+                  />
+                  <div className="menu-hr"/>
                   <Button 
                     onClick={this.toggleVisibility} 
                     circular={true} 
@@ -99,12 +105,6 @@ export default class FunctionDiffListSidebar extends React.Component<IProps, ISt
                   />
                   <Button circular={true} icon="settings" onClick={this.moveSettingPage}/>
                   <Button circular={true} icon="columns" primary={sideByside} onClick={this.changeDiffOutFormat}/>
-                  
-                  <FunctionDiff 
-                    diffString={methods[activeItem].diff}
-                    scmType={SvcKind.GIT}
-                    sideBySide={sideByside}
-                  />
               </Segment>
             </Sidebar.Pusher>
           </Sidebar.Pushable>

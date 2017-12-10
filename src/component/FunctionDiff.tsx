@@ -14,8 +14,7 @@ export default class FunctionDiff extends React.Component<IFunctionDiffProps, {}
         return (
             <div className="functiondiff-wrapper" >
             <div 
-                className="functiondiff"
-                
+                className="functiondiff"            
                 dangerouslySetInnerHTML={{__html: this.getPrettyHtml(this.props.diffString)}}
             />
             </div>
@@ -23,7 +22,7 @@ export default class FunctionDiff extends React.Component<IFunctionDiffProps, {}
     }
 
     getPrettyHtml(diffString: string): string {
-        
+
         let options =  {
             inputFormat: 'diff',
             showFiles: false,
