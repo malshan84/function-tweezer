@@ -42,7 +42,7 @@ class Setting extends React.Component<{}, ISettingState> {
             document.getElementsByTagName('body')[0].classList.add('dark');
         } else {
             document.getElementsByTagName('body')[0].classList.remove('dark');
-        }
+        }   
    }
 
     render() {
@@ -82,7 +82,13 @@ class Setting extends React.Component<{}, ISettingState> {
                         </div>
                     </div>
                     <div className="themeSwitch">
-                        <input type="checkbox" id="theme" className="switch dark" defaultChecked={true} onChange={this.changeTheme}/>
+                        <input 
+                            type="checkbox" 
+                            id="theme" 
+                            className="switch dark" 
+                            defaultChecked={document.getElementsByTagName('body')[0].classList.contains('dark')} 
+                            onChange={this.changeTheme}
+                        />
                         <label htmlFor="theme"/>
                     </div>
                 </div>
