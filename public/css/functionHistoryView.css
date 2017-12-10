@@ -29,6 +29,10 @@
     margin-top: -8px;
 }
 
+.history-contents .active.item .ui.card , .active.item .history-contents .ui.card>.card{
+    background: #ededf1;
+}
+
 body ::-webkit-scrollbar {
     -webkit-appearance: none;
     width: 10px;

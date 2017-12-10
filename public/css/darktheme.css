@@ -21,9 +21,13 @@ body.dark {
     background: #36393e;
 }
 
-.dark .ui.card>.content>.header, .ui.cards>.card>.content>.header,
-.dark .ui.card>.content>.description, .ui.cards>.card>.content>.description {
+.dark .ui.card>.content>.header, .dark .ui.cards>.card>.content>.header,
+.dark .ui.card>.content>.description, .dark .ui.cards>.card>.content>.description {
     color: white;
+}
+
+.dark .history-contents .active.item .ui.card , .dark .active.item .history-contents .ui.card>.card{
+    background: #3d5377;
 }
 
 .dark .menu-hr {
@@ -51,7 +55,7 @@ body.dark {
 }
 
 .dark .d2h-file-wrapper {
-    border: 1px solid #505050;
+    border: 1px solid #36393e;
 }
 .dark .d2h-code-line del,
 .dark .d2h-code-side-line del {
