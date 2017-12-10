@@ -34,7 +34,7 @@ function loadURL(hashStr: string) {
 }
 
 function createWindow() {
-    mainWindow = new BrowserWindow({ width: 1000, height: 800 });
+    mainWindow = new BrowserWindow({ width: 1200, height: 800 });
     console.log('start electron');
 
     // hide menu bar
