@@ -1,11 +1,10 @@
 .functiondiff-wrapper{
 	background:rgb(255, 255, 255);
 	font-weight: normal;
-	margin-right: 7px;
 	margin-top: 5px;
 	position: relative;
-	height: 95%;
 	overflow-y: auto;
+	height: calc(100% - 200px);
 }
 
 .functiondiff{

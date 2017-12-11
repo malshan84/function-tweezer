@@ -1,41 +1,71 @@
 body.dark {
-    background: #36393f
+    background: #222222
 }
 .dark .history-contents .ui.segment {
-    background: #36393e;
+    background: #222222;
 }
 .dark .history-contents .ui.segment .sidebar {
-    background: #2f3136;
+    background: #222222;
 }
 
-.dark .history-contents .ui.card, .history-contents .ui.card>.card {
+.dark .history-contents .ui.card, .dark .history-contents .ui.card>.card {
     box-shadow: none;
-    background: #36393e;
+    background: #464545;
+}
+
+.dark .history-contents .history-detail .ui.card, .dark .history-contents .history-detail .ui.card>.card {
+    box-shadow: none;
+    background: rgba(95, 96, 101, 0.57);
+}
+.dark .ui.card.history-detail>.content>.header{
+    color: rgb(239, 239, 239);
+}
+.dark .ui.card.history-detail .meta, .dark .ui.cards.history-detail>.card .meta {
+    color:rgba(255, 255, 255, 0.46);
+}
+
+.dark .history-contents .ui.card.history-detail {
+    background: rgba(116, 115, 119, 0.21);
 }
 
 .dark .history-contents{
-    border-top: solid #292b2e 2px;
+    border-top: solid #5c5c5d 2px;
 }
 
 .dark .functiondiff-wrapper {
-    background: #36393e;
+    background: #222222;
 }
 
 .dark .ui.card>.content>.header, .dark .ui.cards>.card>.content>.header,
-.dark .ui.card>.content>.description, .dark .ui.cards>.card>.content>.description {
+.dark .ui.card>.content>.description, .dark .ui.cards>.card>.content>.description,
+.dark .history-detail .description {
     color: white;
 }
 
 .dark .history-contents .active.item .ui.card , .dark .active.item .history-contents .ui.card>.card{
     background: #3d5377;
 }
-
-.dark .menu-hr {
-    background:#292b2e;
+.dark .ui.secondary.vertical.pointing.menu {
+    border-right-color: #5c5c5d;
+}
+.dark .ui.secondary.vertical.pointing.menu .active.item {
+    border-color: #ffffff;
 }
 
-.dark .history-contents{
-    border-top: solid #292b2e 2px;
+.dark .ui.card>.extra, .dark .ui.cards>.card>.extra {
+    border-top: 1px solid rgba(117, 117, 117, 0.61)!important;
+}
+
+.dark .ui.card .meta, .dark .ui.cards>.card .meta {
+    color: rgb(0, 0, 0);
+}
+
+.dark .ui.menu {
+    border: 1px solid #5c5c5d;
+}
+
+.dark .menu-hr {
+    background:#5c5c5d;
 }
 
 .dark .historyview-logo{
@@ -55,7 +85,7 @@ body.dark {
 }
 
 .dark .d2h-file-wrapper {
-    border: 1px solid #36393e;
+    border: 1px solid #222222;
 }
 .dark .d2h-code-line del,
 .dark .d2h-code-side-line del {

@@ -5,6 +5,7 @@
     bottom: 0;
     left: 0;
     border-top: solid #c7c7c7 2px;
+    min-width: 1200px;    
 }
 .historyview-logo {
     height: 40px;
@@ -14,7 +15,6 @@
 .pusher.left{
     width: calc(100% - 350px);
 }
-
 
 .pusher.right{
     width: 100%
@@ -31,6 +31,13 @@
 
 .history-contents .active.item .ui.card , .active.item .history-contents .ui.card>.card{
     background: #ededf1;
+}
+.history-contents .ui.menu .ui.card .header{
+    width:280px; 
+    padding:0 5px; 
+    overflow:hidden; 
+    text-overflow:ellipsis; 
+    white-space:nowrap; 
 }
 
 body ::-webkit-scrollbar {
@@ -51,4 +58,19 @@ body ::-webkit-scrollbar {
 
 .history-contents .ui.circular.button {
     margin: 5px
+}
+
+body.dark ::-webkit-scrollbar-thumb {
+    background: #7c838a;
+}
+
+body.dark ::-webkit-scrollbar-track {
+    background: #2f3136;
+}
+.history-detail {
+    min-height: 120px!important;
+    margin-right: 5px;
+}
+.history-menu {
+    height: 50px;
 }

@@ -24,7 +24,7 @@ export default class FunctionDiffComponent extends React.Component<IProps, IStat
         const { method } = this.props;
     
         return (
-            <Card.Content textAlign="left" header={method.name} description={method.date} />
+            <Card.Content textAlign="left" header={method.message} meta={method.date} />
         );
     }
 }
