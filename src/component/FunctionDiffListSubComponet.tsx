@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { Card } from 'semantic-ui-react';
+import { Card, Grid } from 'semantic-ui-react';
 // import { Method } from './models'; 
 import * as LogCollectEvents from '../events/LogCollectEvents';
 
 interface IProps {
     method:  LogCollectEvents.IRevisionInfo;
+    align: 'vertical'|'horizontal';
 }
 
 interface IState {
@@ -21,11 +22,32 @@ export default class FunctionDiffSubComponent extends React.Component<IProps, IS
 
     render() {
         const { method } = this.props;
-    
-        return (
-            <Card.Content extra={true}>
-                <Card.Description> {method.message}</Card.Description>
-            </Card.Content>
-        );
+        if (this.props.align === 'horizontal') {
+            return (
+                <Card.Content extra={true}>
+                    <Grid>
+                        <Grid.Row columns={2}>
+                            <Grid.Column>
+                            <Card.Meta textAlign="left">author</Card.Meta>
+                            <Card.Description textAlign="left"> {method.author}</Card.Description>
+                            </Grid.Column>
+                            <Grid.Column>
+                                <Card.Meta textAlign="left">commit</Card.Meta>
+                                <Card.Description textAlign="left"> {method.name}</Card.Description>
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
+                </Card.Content>
+            );
+        } else {
+            return (
+                <Card.Content extra={true}>
+                    <Card.Meta textAlign="left">author</Card.Meta>
+                    <Card.Description textAlign="left"> {method.author}</Card.Description>
+                    <Card.Meta textAlign="left">commit</Card.Meta>
+                    <Card.Description textAlign="left"> {method.name}</Card.Description>
+                </Card.Content>
+            );
+        }
     }
 }

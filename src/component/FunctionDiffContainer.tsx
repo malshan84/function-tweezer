@@ -13,7 +13,6 @@ interface IProps {
 
 interface IState {
   visible: boolean;
-  showReply: boolean;
   activeItem: number;
   sideByside: boolean;
   methods: LogCollectEvents.IRevisionInfo[];
@@ -24,7 +23,6 @@ export default class FunctionDiffListSidebar extends React.Component<IProps, ISt
   constructor(props: IProps) {
       super(props);
       this.state = {
-        showReply: false,
         visible: true,
         activeItem: 0,
         sideByside: false,
@@ -35,10 +33,6 @@ export default class FunctionDiffListSidebar extends React.Component<IProps, ISt
 
   componentWillReceiveProps(props: IProps) {
     this.setState({methods: props.methods});
-  }
-  
-  onClick = (e: React.MouseEvent<HTMLAnchorElement> ) => { 
-    this.setState({showReply: !this.state.showReply});
   }
 
   toggleVisibility = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -60,7 +54,7 @@ export default class FunctionDiffListSidebar extends React.Component<IProps, ISt
 
   render() {
     const {methods} = this.props;
-    const {activeItem, visible , showReply, sideByside} = this.state;
+    const {activeItem, visible, sideByside} = this.state;
 
     return (
       <div className="history-contents">
@@ -77,11 +71,11 @@ export default class FunctionDiffListSidebar extends React.Component<IProps, ISt
                         active={activeItem === index}
                         onClick={this.handleItemClick}
                         content={
-                          <div onClick={this.onClick.bind(this)}>
+                          <div>
                             <Card>
                               <FunctionDiffComponent method={val}/>
-                              { showReply && (activeItem === index) ? 
-                              <FunctionDiffSubComponent method={val} /> : null}
+                              { (activeItem === index) ? 
+                              <FunctionDiffSubComponent method={val} align="vertical" /> : null}
                             </Card>
                           </div>}
                       />
@@ -92,19 +86,25 @@ export default class FunctionDiffListSidebar extends React.Component<IProps, ISt
           </Sidebar>
             <Sidebar.Pusher className={visible ? 'left' : 'right'}>
               <Segment basic={true}>
+                 <Card className="history-detail">
+                      <FunctionDiffComponent method={methods[activeItem]}/>
+                      <FunctionDiffSubComponent method={methods[activeItem]} align="horizontal" /> 
+                  </Card>
                   <FunctionDiff 
                     diffString={methods[activeItem].diff}
                     scmType={SvcKind.GIT}
                     sideBySide={sideByside}
                   />
-                  <div className="menu-hr"/>
-                  <Button 
-                    onClick={this.toggleVisibility} 
-                    circular={true} 
-                    icon={visible ? 'chevron left' : 'chevron right'}
-                  />
-                  <Button circular={true} icon="settings" onClick={this.moveSettingPage}/>
-                  <Button circular={true} icon="columns" primary={sideByside} onClick={this.changeDiffOutFormat}/>
+                  <div className="history-menu">
+                    <div className="menu-hr"/>
+                    <Button 
+                      onClick={this.toggleVisibility} 
+                      circular={true} 
+                      icon={visible ? 'chevron left' : 'chevron right'}
+                    />
+                    <Button circular={true} icon="settings" onClick={this.moveSettingPage}/>
+                    <Button circular={true} icon="columns" primary={sideByside} onClick={this.changeDiffOutFormat}/>
+                  </div>
               </Segment>
             </Sidebar.Pusher>
           </Sidebar.Pushable>
