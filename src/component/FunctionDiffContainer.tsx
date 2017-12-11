@@ -47,6 +47,14 @@ export default class FunctionDiffListSidebar extends React.Component<IProps, ISt
     window.location.hash = '/setting';
   }
 
+  changeLog = (change: 'prev'| 'next') => {
+    if (change === 'prev') {
+      this.setState({ activeItem: this.state.activeItem - 1 } );
+    } else if (change === 'next') {
+      this.setState({ activeItem: this.state.activeItem + 1 } );
+    }
+  }
+
   handleItemClick = (
     e: React.MouseEvent<HTMLAnchorElement>,  data: MenuItemProps ) => {
     this.setState({ activeItem: data.index } );
@@ -87,6 +95,21 @@ export default class FunctionDiffListSidebar extends React.Component<IProps, ISt
             <Sidebar.Pusher className={visible ? 'left' : 'right'}>
               <Segment basic={true}>
                  <Card className="history-detail">
+                      {(activeItem !== 0) ?
+                          <div 
+                            className="swiper-button-prev swiper-button-white" 
+                            onClick={(event) => this.changeLog('prev')}
+                          />
+                        : null
+                      }
+
+                      {(activeItem !== (methods.length - 1)) ?
+                        <div 
+                          className="swiper-button-next swiper-button-white"  
+                          onClick={(evnet) => this.changeLog('next')}
+                        />
+                      : null
+                      }
                       <FunctionDiffComponent method={methods[activeItem]}/>
                       <FunctionDiffSubComponent method={methods[activeItem]} align="horizontal" /> 
                   </Card>
