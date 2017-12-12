@@ -1,5 +1,8 @@
 import { ipcRenderer } from 'electron';
 import RouteServer from '../RouteServer';
+import LogCollectorWrapper, { IFileLineInfo } from '../api/LogCollectorWrapper';
+import { UserInfo, SvcKind } from '../api/UserInfo';
+import * as UserinfoApi from '../api/UserInfo';
 
 export interface IRevisionInfo {
     name: string;
@@ -10,8 +13,23 @@ export interface IRevisionInfo {
 }
 
 const SHOW_LOG = 'SHOW_LOG';
-function showLogEvent() {    
-    RouteServer.getInstance().addShowLogEvent(SHOW_LOG);    
+
+function showLogEvent() {
+    RouteServer.getInstance().addEvent(
+        SHOW_LOG,
+        (req, send) => {
+            const fileLineInfo: IFileLineInfo = req.body;
+            let userInfo: UserInfo = UserinfoApi.getUserInfo(SvcKind.SVN);
+            LogCollectorWrapper.createLogCollector(userInfo);
+            LogCollectorWrapper.getInstance().getLog(fileLineInfo, (err: string | null, revs: Log.RevisionInfo[]) => {
+                if (err !== null) {
+                    console.log(err);
+                } else {
+                    send(revs);
+                }
+            });
+        }
+    );
 }
 
 export function listenShowLog(eventFunc: (revisions: IRevisionInfo[]) => void) {

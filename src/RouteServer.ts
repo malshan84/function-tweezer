@@ -1,16 +1,6 @@
 import * as express from 'express';
 import * as http from 'http';
 import * as bodyParser from 'body-parser';
-import * as LogCollector from 'log-collector';
-import * as UserinfoApi from './api/UserInfo';
-import { UserInfo, SvcKind } from './api/UserInfo';
-
-interface IReqInfo {
-    start: number;
-    end: number;
-    localPath: string;
-    description: string;
-}
 
 export default class RouteServer {
     private static instance: RouteServer = undefined;
@@ -39,36 +29,20 @@ export default class RouteServer {
         }
     }
 
-    public addEvent(eventName: string, event: (req: express.Request) => any) {
-        this._app.post(`/${eventName}`, (req: express.Request, res: express.Response) => {
-            const mainWindow = this._mainWindow;
-            function callEvent() {
-                mainWindow.webContents.send(eventName, event(req));
-            }
-            callEvent();      
-            res.on('OK', callEvent);
-        });
-    }    
+    public addEvent(eventName: string, event: (req: express.Request, send: (...arg: any[]) => void
+    ) => void) {
+        const mainWindow: Electron.BrowserWindow = this._mainWindow;
 
-    public addShowLogEvent(eventName: string) {
         this._app.post(`/${eventName}`, (req: express.Request, res: express.Response) => {
-            console.log(req.body);
-            const reqInfo: IReqInfo = req.body;
-            let userInfo: UserInfo = UserinfoApi.getUserInfo(SvcKind.SVN);
-            const gitLogCollector = new LogCollector({ username: userInfo.id, password: userInfo.pw, kind: 'git' });
-            gitLogCollector.getLogWithRange(
-                reqInfo.localPath,
-                { startLine: reqInfo.start, endLine: reqInfo.end },
-                10,
-                (err: string | null, revs: Log.RevisionInfo[]) => {
-                    if (err !== null) {
-                        console.log(err);
-                    } else {
-                        this._mainWindow.webContents.send(eventName, revs);
-                    }
-                }
-            );
-            res.send('OK');
+            if (mainWindow === undefined ) {
+                console.log('undfined!!');
+            }
+            function send (...arg: any[]) {
+                mainWindow.webContents.send(eventName, arg[0]);
+                console.log('send ok');
+                res.send('OK');
+            }
+            event(req, send);  
         });
     }
 
