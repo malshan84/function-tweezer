@@ -18,7 +18,7 @@ body.dark {
     background: rgba(95, 96, 101, 0.57);
 }
 .dark .ui.card.history-detail>.content>.header{
-    color: rgb(239, 239, 239);
+    color: rgb(226, 221, 221);
 }
 .dark .ui.card.history-detail .meta, .dark .ui.cards.history-detail>.card .meta {
     color:rgba(255, 255, 255, 0.46);
@@ -39,7 +39,7 @@ body.dark {
 .dark .ui.card>.content>.header, .dark .ui.cards>.card>.content>.header,
 .dark .ui.card>.content>.description, .dark .ui.cards>.card>.content>.description,
 .dark .history-detail .description {
-    color: white;
+    color: rgb(226, 221, 221);
 }
 
 .dark .history-contents .active.item .ui.card , .dark .active.item .history-contents .ui.card>.card{
@@ -61,14 +61,14 @@ body.dark {
 }
 
 .dark .ui.menu {
-    border: 1px solid #5c5c5d;
+    border-right: 1px solid #5c5c5d;
 }
 
 .dark .menu-hr {
     background:#5c5c5d;
 }
 
-.dark .historyview-logo{
+.dark .titleLogo .logo{
 	content:url("../logo_white.png");
 }
 
@@ -172,3 +172,10 @@ body.dark {
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23ffffff'%2F%3E%3C%2Fsvg%3E")
 }
 
+.dark #titleBar {
+    color:white;
+    background: black;
+}
+.dark #titleLogo #logo{
+    content:url("../logo_white.png");
+}

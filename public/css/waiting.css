@@ -1,7 +1,7 @@
 
 .wait-description{
 	position:absolute;
-	top:50px;right:0;bottom:0;left:0;
+	top:80px;right:0;bottom:0;left:0;
 	display:flex;
   align-items:center;
   flex-direction: column;

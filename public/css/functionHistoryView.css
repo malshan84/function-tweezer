@@ -1,15 +1,11 @@
 .history-contents{
     position: absolute;
-    top: 50px;
+    top: 40px;
     right: 0;
     bottom: 0;
     left: 0;
     border-top: solid #c7c7c7 2px;
     min-width: 1200px;    
-}
-.historyview-logo {
-    height: 40px;
-    margin-left: 10px;
 }
 
 .pusher.left{

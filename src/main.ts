@@ -34,7 +34,8 @@ function loadURL(hashStr: string) {
 }
 
 function createWindow() {
-    mainWindow = new BrowserWindow({ width: 1250, height: 800, icon: __dirname + './../../public/tweezer_ico.ico' });
+    mainWindow = new BrowserWindow({ 
+        frame: false, width: 1250, height: 800, icon: __dirname + './../../public/tweezer_ico.ico' });
     console.log('start electron');
 
     // hide menu bar
