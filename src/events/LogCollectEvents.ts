@@ -3,6 +3,7 @@ import RouteServer from '../RouteServer';
 import LogCollectorWrapper, { IFileLineInfo } from '../api/LogCollectorWrapper';
 import { UserInfo, SvcKind } from '../api/UserInfo';
 import * as UserinfoApi from '../api/UserInfo';
+import { RevisionInfo } from 'log-collector';
 
 export interface IRevisionInfo {
     name: string;
@@ -20,8 +21,8 @@ function showLogEvent() {
         (req, send) => {
             const fileLineInfo: IFileLineInfo = req.body;
             let userInfo: UserInfo = UserinfoApi.getUserInfo(SvcKind.SVN);
-            LogCollectorWrapper.createLogCollector(userInfo);
-            LogCollectorWrapper.getInstance().getLog(fileLineInfo, (err: string | null, revs: Log.RevisionInfo[]) => {
+            LogCollectorWrapper.createLogCollector(userInfo, fileLineInfo.localPath);
+            LogCollectorWrapper.getInstance().getLog(fileLineInfo, (err: string | null, revs: RevisionInfo[]) => {
                 if (err !== null) {
                     console.log(err);
                 } else {

@@ -1,4 +1,4 @@
-import * as LogCollector from 'log-collector';
+import { LogCollector, RevisionInfo, getSCMKind } from 'log-collector';
 import { UserInfo } from './UserInfo';
 
 export interface IFileLineInfo {
@@ -10,16 +10,16 @@ export interface IFileLineInfo {
 
 export default class LogCollectorWrapper {
     private static instance: LogCollectorWrapper = undefined;
-    private _logCollector: Log.LogCollector;
-    private _callback: (err: string|null, revisions: Log.RevisionInfo[]) => void;
+    private _logCollector: LogCollector;
+    private _callback: (err: string|null, revisions: RevisionInfo[]) => void;
 
-    private constructor(userInfo: UserInfo) {
+    private constructor(userInfo: UserInfo, localPath: string) {
         
-        this._logCollector = new LogCollector({ username: userInfo.id, password: userInfo.pw, kind: 'git' });
+        this._logCollector = new LogCollector({ username: userInfo.id, password: userInfo.pw, kind: getSCMKind(localPath) });
     }
 
-    public static createLogCollector(userInfo: UserInfo) {
-        this.instance = new LogCollectorWrapper(userInfo);
+    public static createLogCollector(userInfo: UserInfo, localPath: string) {
+        this.instance = new LogCollectorWrapper(userInfo, localPath);
         return this.instance;
     }
 
@@ -35,7 +35,7 @@ export default class LogCollectorWrapper {
     public getLog
     (
         fileLineInfo: IFileLineInfo,
-        callback: (err: string|null, revisions: Log.RevisionInfo[]) => void 
+        callback: (err: string|null, revisions: RevisionInfo[]) => void 
     ): void {
         this._callback = callback;
         this._logCollector.getLogWithRange(
