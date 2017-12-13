@@ -2,6 +2,7 @@ import { ipcRenderer, ipcMain } from 'electron';
 import * as PortApi from '../api/Port';
 import * as UserInfoApi from '../api/UserInfo';
 import { SvcKind, UserInfo } from '../api/UserInfo';
+import { checkSvnAccount } from 'log-collector';
 
 /**
  * SAVE_USER_INFO
@@ -17,6 +18,23 @@ function listenSaveUserInfoEvent() {
         event.returnValue = true;
     });
 }
+
+/**
+ * CHECK_SVN_ACCOUNT
+ */
+const CHECK_SVN_ACCOUNT = 'CHECK_SVN_ACCOUNT';
+export function requestCheckSvnAccount(userInfo: UserInfo): Boolean {
+    return ipcRenderer.sendSync(CHECK_SVN_ACCOUNT, userInfo);
+}
+
+function listenCheckSvnAccountEvent() {
+    ipcMain.on(CHECK_SVN_ACCOUNT, (event: Electron.Event, userInfo: UserInfo) => {
+        checkSvnAccount(userInfo.url, userInfo.id, userInfo.pw, (isSuccess: boolean) => {
+            event.returnValue = isSuccess;
+        });        
+    });
+}
+
 
 /**
  * REQUEST_USER_INFO
@@ -80,4 +98,5 @@ export function registEvents() {
     listenRequestHasInfoEvent();
     listenRequestUserInfoEvent();
     listenSaveUserInfoEvent();
+    listenCheckSvnAccountEvent();
 }
