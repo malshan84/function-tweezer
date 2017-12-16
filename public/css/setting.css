@@ -35,6 +35,15 @@
 	backface-visibility:hidden;
 	transition:all .4s linear;
 }
+
+.git-htm .message {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: x-large;
+}
+
 .setting-html .svn,
 .setting-html .git,
 .setting-form .group .check{

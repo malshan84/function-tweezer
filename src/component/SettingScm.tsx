@@ -12,12 +12,12 @@ class SettingScm extends React.Component<{type: SvcKind, addSaveEventListener: F
        this.state = UserInfoEvent.requestUserInfoEvent(this.props.type);
        
        this.saveEventListener = this.saveEventListener.bind(this);   
-       this.props.addSaveEventListener(this.saveEventListener);
-
+       
        if (this.props.type === SvcKind.GIT) {
            this.svc = 'git';
        } else {
            this.svc = 'svn';
+           this.props.addSaveEventListener(this.saveEventListener);
        }
 
     } 
@@ -31,43 +31,51 @@ class SettingScm extends React.Component<{type: SvcKind, addSaveEventListener: F
     }
 
     render() {
-        return (
-           
-            <div className={this.svc + '-htm'}>
-                    <div className="group">
-                        <label htmlFor={this.svc + '_url'} className="label">URL</label>
-                        <input 
-                            id={this.svc + '_url'}
-                            type="text" 
-                            className="input" 
-                            value={this.state.url} 
-                            onChange={(event) => {this.setState({...this.state, url: event.target.value}); }}
-                        />
-                    </div>
-                    <div className="group">
-                        <label htmlFor={this.svc + 'id'} className="label">ID</label>
-                        <input 
-                            id={this.svc + '_id'} 
-                            type="text" 
-                            className="input" 
-                            value={this.state.id} 
-                            onChange={(event) => {this.setState({...this.state, id: event.target.value}); }}
-                        />
-                    </div>
-                    <div className="group">
-                        <label htmlFor={this.svc + '_pass'} className="label">PW</label>
-                        <input 
-                            id={this.svc + '_pass'} 
-                            type="password" 
-                            className="input" 
-                            data-type="password" 
-                            value={this.state.pw} 
-                            onChange={(event) => {this.setState({...this.state, pw: event.target.value}); }}
-                        />
-                    </div>
-            </div>
+        if (this.props.type === SvcKind.SVN) {
+            return (
+            
+                <div className={this.svc + '-htm'}>
+                        <div className="group">
+                            <label htmlFor={this.svc + '_url'} className="label">URL</label>
+                            <input 
+                                id={this.svc + '_url'}
+                                type="text" 
+                                className="input" 
+                                value={this.state.url} 
+                                onChange={(event) => {this.setState({...this.state, url: event.target.value}); }}
+                            />
+                        </div>
+                        <div className="group">
+                            <label htmlFor={this.svc + 'id'} className="label">ID</label>
+                            <input 
+                                id={this.svc + '_id'} 
+                                type="text" 
+                                className="input" 
+                                value={this.state.id} 
+                                onChange={(event) => {this.setState({...this.state, id: event.target.value}); }}
+                            />
+                        </div>
+                        <div className="group">
+                            <label htmlFor={this.svc + '_pass'} className="label">PW</label>
+                            <input 
+                                id={this.svc + '_pass'} 
+                                type="password" 
+                                className="input" 
+                                data-type="password" 
+                                value={this.state.pw} 
+                                onChange={(event) => {this.setState({...this.state, pw: event.target.value}); }}
+                            />
+                        </div>
+                </div>
 
-        );
+            );
+        } else {
+            return (
+                <div className={this.svc + '-htm'}>
+                    <div className="message">No setup required.</div>
+                </div>
+            );
+        }
     }
 }
 
