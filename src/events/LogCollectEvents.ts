@@ -4,6 +4,7 @@ import LogCollectorWrapper, { IFileLineInfo, getSCMKind } from '../api/LogCollec
 import { UserInfo, SvcKind } from '../api/UserInfo';
 import * as UserinfoApi from '../api/UserInfo';
 import { RevisionInfo } from 'log-collector';
+import { listenEvent } from '../RouterListener';
 
 export interface IRevisionInfo {
     name: string;
@@ -40,9 +41,7 @@ function showLogEvent() {
 }
 
 export function listenShowLog(eventFunc: (revisions: IRevisionInfo[]) => void) {
-    ipcRenderer.on(SHOW_LOG, (event: Electron.Event, revisions: IRevisionInfo[]) => {
-        eventFunc(revisions);
-    });
+    listenEvent(SHOW_LOG, eventFunc);
 }
 
 export function removeListenerShowLog() {
