@@ -1,4 +1,5 @@
-import { LogCollector, RevisionInfo, getSCMKind } from 'log-collector';
+import { LogCollector, RevisionInfo } from 'log-collector';
+import * as LogCollectorUtils from 'log-collector';
 import { UserInfo } from './UserInfo';
 
 export interface IFileLineInfo {
@@ -11,15 +12,14 @@ export interface IFileLineInfo {
 export default class LogCollectorWrapper {
     private static instance: LogCollectorWrapper = undefined;
     private _logCollector: LogCollector;
-    private _callback: (err: string|null, revisions: RevisionInfo[]) => void;
 
-    private constructor(userInfo: UserInfo, localPath: string) {
+    private constructor(userInfo: UserInfo, kind: string) {
         
-        this._logCollector = new LogCollector({ username: userInfo.id, password: userInfo.pw, kind: getSCMKind(localPath) });
+        this._logCollector = new LogCollector({ username: userInfo.id, password: userInfo.pw, kind });
     }
 
-    public static createLogCollector(userInfo: UserInfo, localPath: string) {
-        this.instance = new LogCollectorWrapper(userInfo, localPath);
+    public static createLogCollector(userInfo: UserInfo, kind: string) {
+        this.instance = new LogCollectorWrapper(userInfo, kind);
         return this.instance;
     }
 
@@ -37,7 +37,6 @@ export default class LogCollectorWrapper {
         fileLineInfo: IFileLineInfo,
         callback: (err: string|null, revisions: RevisionInfo[]) => void 
     ): void {
-        this._callback = callback;
         this._logCollector.getLogWithRange(
             fileLineInfo.localPath,
             { startLine: fileLineInfo.start, endLine: fileLineInfo.end },
@@ -45,7 +44,11 @@ export default class LogCollectorWrapper {
             callback);
     }
 
-    public getNextLog (): void {
-        this._logCollector.getNextLogWithRange(10, this._callback);
+    public getNextLog (callback: (err: string|null, revisions: RevisionInfo[]) => void ): void {
+        this._logCollector.getNextLogWithRange(10, callback);
     }
+}
+
+export function getSCMKind(localPath: string): string {
+    return LogCollectorUtils.getSCMKind(localPath);
 }

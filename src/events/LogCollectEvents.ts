@@ -1,6 +1,6 @@
-import { ipcRenderer } from 'electron';
+import { ipcRenderer, ipcMain } from 'electron';
 import RouteServer from '../RouteServer';
-import LogCollectorWrapper, { IFileLineInfo } from '../api/LogCollectorWrapper';
+import LogCollectorWrapper, { IFileLineInfo, getSCMKind } from '../api/LogCollectorWrapper';
 import { UserInfo, SvcKind } from '../api/UserInfo';
 import * as UserinfoApi from '../api/UserInfo';
 import { RevisionInfo } from 'log-collector';
@@ -20,8 +20,14 @@ function showLogEvent() {
         SHOW_LOG,
         (req, send) => {
             const fileLineInfo: IFileLineInfo = req.body;
-            let userInfo: UserInfo = UserinfoApi.getUserInfo(SvcKind.SVN);
-            LogCollectorWrapper.createLogCollector(userInfo, fileLineInfo.localPath);
+            let kind: SvcKind;
+            if (getSCMKind(fileLineInfo.localPath) === 'git') {
+                kind = SvcKind.GIT;
+            } else {
+                kind = SvcKind.SVN;
+            }
+            let userInfo: UserInfo = UserinfoApi.getUserInfo(kind);
+            LogCollectorWrapper.createLogCollector(userInfo, getSCMKind(fileLineInfo.localPath));
             LogCollectorWrapper.getInstance().getLog(fileLineInfo, (err: string | null, revs: RevisionInfo[]) => {
                 if (err !== null) {
                     console.log(err);
@@ -44,6 +50,25 @@ export function removeListenerShowLog() {
 
 }
 
+const NEXT_LOG = 'NEXT_LOG';
+
+function nextLogEvent() {
+    ipcMain.on(SHOW_LOG, (event: Electron.Event, eventFunc: (revisions: IRevisionInfo[]) => void) => {
+        LogCollectorWrapper.getInstance().getNextLog((err: string | null, revs: RevisionInfo[]) => {
+            if (err !== null) {
+                console.log(err);
+            } else {
+                eventFunc(revs);
+            }
+        });
+    });
+}
+
+export function requestNextLog(eventFunc: (revisions: IRevisionInfo[]) => void) {
+    return ipcRenderer.send(NEXT_LOG, eventFunc);
+}
+
 export function registEvents () {
     showLogEvent();
+    nextLogEvent();
 }
