@@ -4,7 +4,7 @@ import { SvcKind } from '../api/UserInfo';
 
 interface IFunctionDiffProps {
     scmType: SvcKind;
-    diffString: string;
+    diffString: string|undefined;
     sideBySide: boolean;
 }
 
@@ -21,16 +21,21 @@ export default class FunctionDiff extends React.Component<IFunctionDiffProps, {}
         );
     }
 
-    getPrettyHtml(diffString: string): string {
+    getPrettyHtml(diffString: string|undefined): string {
+        var str: string = '';
+        if (diffString !== undefined) {
+        
+            let options =  {
+                inputFormat: 'diff',
+                showFiles: false,
+                matching: 'words',
+                outputFormat: this.props.sideBySide ? 'side-by-side' : '' 
+            };
 
-        let options =  {
-            inputFormat: 'diff',
-            showFiles: false,
-            matching: 'words',
-            outputFormat: this.props.sideBySide ? 'side-by-side' : '' 
-        };
-
-        var str: string = Diff2Html.getPrettyHtml(diffString, options);
+            str = Diff2Html.getPrettyHtml(diffString, options);
+        } else {
+            console.log('undefined');
+        }
             
         return str;
     }
