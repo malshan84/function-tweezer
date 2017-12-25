@@ -7,12 +7,16 @@
     "start": "electron .",
     "tstart": "tsc & electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "rebuild": "electron-rebuild -f -w sqlite3"
+    "rebuild": "electron-rebuild -f -w sqlite3",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=public/tweezer_ico.icns --prune=true --out=release-builds",
+    "package-win": "electron-packager . electron-tutorial-app --overwrite --asar=true --platform=win32 --arch=ia32 --icon=public/tweezer_ico.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Electron Tutorial App\"",    
+    "package-linux": "electron-packager . electron-tutorial-app --overwrite --asar=true --platform=linux --arch=x64 --icon=public/tweezer_ico.ico --prune=true --out=release-builds"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "electron-packager": "^10.1.0",
     "electron-rebuild": "^1.6.0",
     "semantic-ui-css": "^2.2.12",
     "semantic-ui-react": "^0.77.1"
