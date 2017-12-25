@@ -50,4 +50,8 @@ export default class RouteServer {
         this._server.close();
         this._server.listen(port);
     }
+
+    public close() {
+        this._server.close();
+    }
 }
